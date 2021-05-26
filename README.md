@@ -46,6 +46,7 @@ Link: http://localhost:8080/swagger-ui/index.html?url=/api/docs&validatorUrl=#/
 <div>
     <img src="./images/signup.png" width="54%">
     <img src="./images/profile.png" width="44%">
+    <img src="./images/signin.png" width="44%">
 </div>
 
 ## Any questions
@@ -56,5 +57,3 @@ If you have any questions, feel free to ask me:
 - **Github**: [https://github.com/deepanshut041](https://github.com/deepanshut041)
 - **Website**: [https://deepanshut041.github.io](https://deepanshut041.github.io)
 - **Twitter**: <a href="https://twitter.com/deepanshut041">@deepanshut041</a>
-
-Don't forget to follow me on <a href="https://twitter.com/deepanshut041">twitter</a>, <a href="https://github.com/deepanshut041">github</a> and <a href="https://medium.com/@deepanshut041">Medium</a> to be alerted of the new articles that I publish
