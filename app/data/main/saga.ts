@@ -4,11 +4,11 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function fetchToken() {
-    return AsyncStorage.getItem("ACCESS_TOKEN")
+    return AsyncStorage.getItem("ACCESS_TOKEN").then((token) => ({token})).catch((error) => ({error}))
 }
 
 function* handleFetchToken(action: any) {
-    const token = yield call(fetchToken);
+    const {token, error} = yield call(fetchToken);
     yield put({
         type: actions.MAIN_STORAGE_TOKEN_RESPONSE,
         accessToken: token,

@@ -13,7 +13,7 @@ export default class ForgotPasswordScreen extends Component {
   }
 
   forgot = () => {
-    alert('email: ' + this.state.email)
+    alert('Not Implemented Yet')
   }
 
   render() {

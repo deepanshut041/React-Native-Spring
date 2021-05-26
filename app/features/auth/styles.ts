@@ -73,5 +73,13 @@ export const styles = StyleSheet.create({
         backgroundColor: 'black',
         justifyContent: 'center',
         alignItems: 'center'
+    },
+    errorIcon: {
+        width: 20,
+        height: 20,
+    },
+    errorButton: {
+        margin: 0,
+        padding: 0
     }
 });

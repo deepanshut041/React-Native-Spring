@@ -6,9 +6,27 @@ export const signUp = (requestBody: SignUpRequest) => ({
     requestBody
 });
 
+export const signUpError = (error: any) => ({
+    type: actions.AUTH_SIGNUP_ERROR,
+    error
+});
+
+export const signUpInitial = () => ({
+    type: actions.AUTH_SIGNUP_INITIAL
+});
+
+export const signInInitial = () => ({
+    type: actions.AUTH_SIGNIN_INITIAL
+});
+
 export const signIn = (requestBody: SignInRequest) => ({
     type: actions.AUTH_SIGNIN_REQUEST,
     requestBody
+});
+
+export const signInError = (error: any) => ({
+    type: actions.AUTH_SIGNIN_ERROR,
+    error
 });
 
 export const signOut = (_: any) => ({

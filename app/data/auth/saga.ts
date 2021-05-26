@@ -1,22 +1,22 @@
-import { all, takeLatest, put, call } from 'redux-saga/effects';
+import { all, takeLatest, put, call, delay } from 'redux-saga/effects';
 import axios from "axios";
 import * as actions from "./constants";
 import * as mainActions from "../main/constants";
 import { SignInRequest } from "./types";
-import { request } from '../utils/http';
+import { request, setupHttpConfig } from '../utils/http';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 
 function sendSignIn(req: SignInRequest) {
-    return request.post('/api/account/signin/', req);
+    return request.post('/api/account/signin/', req)
+        .then(response => ({ response }))
+        .catch(error => ({ error: error.response.data }));
 }
 
-function sendSignUp(email: string, password: string, name: string) {
-    return request.post('/api/auth/signup/', {
-        email: email,
-        password: password,
-        name: name,
-    });
+function sendSignUp(req: SignInRequest) {
+    return request.post('/api/account/signup/', req)
+        .then(response => ({ response }))
+        .catch(error => ({ error: error.response.data }))
 }
 
 function saveToken(token: string) {
@@ -29,37 +29,31 @@ function cleanToken() {
 
 function* handleSignIn(action: any) {
     const { requestBody } = action;
-    try {
-        const { status, data } = yield call(sendSignIn, requestBody);
-        yield call(saveToken, data.tokenType + data.accessToken );
-        console.log(data.tokenType + data.accessToken);
-        yield put({
-            type: mainActions.MAIN_STORAGE_TOKEN_RESPONSE,
-            accessToken: data.accessToken + data.tokenType,
-        });
-    } catch (error) {
-        yield put({
-            type: actions.AUTH_SIGNIN_ERROR,
-            error: 'Invalid Credentials',
-        });
+    const { response, error } = yield call(sendSignIn, requestBody);
+
+    if (response) {
+        yield put({ type: actions.AUTH_SIGNIN_SUCCESS, data: response });
+        yield call(saveToken, response.data.tokenType + response.data.accessToken);
+        yield delay(500)
+        setupHttpConfig()
+        yield put({ type: mainActions.MAIN_STORAGE_TOKEN_RESPONSE, accessToken: response.data.tokenType + response.data.accessToken });
+    } else {
+        yield put({ type: actions.AUTH_SIGNIN_ERROR, error: error.error });
     }
 }
 
 function* handleSignUp(action: any) {
-    const { user: { email, password, name } } = action;
-    const { status, data } = yield call(sendSignUp, email, password, name);
+    const { requestBody } = action;
+    const { response, error } = yield call(sendSignUp, requestBody);
 
-    // if (status === 200) {
-    //     yield put({
-    //         type: actions.AUTH_SIGNIN_SUCCESS,
-    //         accessToken: data.token,
-    //     });
-    // } else {
-    //     yield put({
-    //         type: actions.AUTH_SIGNIN_ERROR,
-    //         error: 'Invalid Credentials',
-    //     });
-    // }
+    if (response) {
+        yield put({
+            type: actions.AUTH_SIGNUP_SUCCESS,
+            data: response,
+        });
+    } else {
+        yield put({ type: actions.AUTH_SIGNUP_ERROR, error: error.error });
+    }
 }
 
 function* handleForgotPassword(action: any) {
@@ -81,6 +75,7 @@ function* handleForgotPassword(action: any) {
 
 function* handleSignOut(action: any) {
     yield call(cleanToken)
+    setupHttpConfig()
 }
 
 export default all([

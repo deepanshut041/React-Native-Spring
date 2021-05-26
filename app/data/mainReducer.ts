@@ -1,11 +1,13 @@
 import { combineReducers } from "redux";
 import { authReducer } from "./auth/reducers";
 import { mainReducer } from "./main/reducers";
+import { homeReducer } from "./home/reducers";
 import * as authConstants from "./auth/constants";
 
 const appReducer = combineReducers({
     mainReducer,
-    authReducer
+    authReducer,
+    homeReducer
 })
 
 export const rootReducers = (state: any, action: any) => {

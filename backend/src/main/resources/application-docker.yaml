@@ -1,0 +1,62 @@
+spring:
+  data:
+    mongodb:
+      authentication-database: admin
+      username: user
+      password: pass
+      database: walletifai
+      port: 27017
+      host: database
+
+  security:
+    oauth2:
+      client:
+        registration:
+          google:
+            clientId: 694824590831-f558c41rc22gdfp0vmhusc90a2o4h7lt.apps.googleusercontent.com
+            clientSecret: e-5dhA3j69dO_Jpetzjqi0e_
+            scope:
+              - email
+              - profile
+          facebook:
+            clientId: 330846897767065
+            clientSecret: 1b914505b56562b43888d125b94e8225
+            scope:
+              - email
+              - public_profile
+          github:
+            clientId: 9bc6db0a91f9a3592d64
+            clientSecret: a8acd8556a2a17bc191f5a32e9e7dc1016aeb902
+            scope:
+              - email
+              - public_profile
+
+  devtools:
+    restart:
+      additional-paths: .
+    trigger-file: reload-trigger.txt
+
+
+#logging
+logging:
+  level:
+    org:
+      springframework:
+        data: debug
+    error: trace
+
+#docs
+springdoc:
+  version: '1.0.0'
+  api-docs:
+    path: /api/docs
+
+app:
+  auth:
+    tokenSecret: 926D96C90030DD58429D2751AC1BDBBC
+    tokenExpirationMsec: 864000000
+  oauth2:
+    authorizedRedirectUrls:
+      - http://localhost:8080/oauth2/redirect
+      - myandroidapp://oauth2/redirect
+      - myiosapp://oauth2/redirect

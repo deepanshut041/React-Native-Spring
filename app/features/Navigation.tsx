@@ -59,7 +59,7 @@ const mapStateToProps = (state: any) => {
 
 const mapDispatchToProps = (dispatch: any) => ({
     fetchToken: () => {
-        dispatch(mainActions.fetchToken(null));
+        dispatch(mainActions.fetchToken());
     }
 });
 
