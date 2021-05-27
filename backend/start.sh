@@ -1,4 +1,5 @@
 #!/bin/bash
+gradle getDeps --no-daemon
 gradle --stop
 gradle build --continuous --quiet &
-gradle bootRun
+gradle bootRun --no-daemon

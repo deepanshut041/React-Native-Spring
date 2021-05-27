@@ -7,12 +7,16 @@ plugins {
 	kotlin("plugin.spring") version "1.5.10"
 }
 
-group = "com.deepanshut041"
+group = "com.deepanshut041.walletifaiKt"
 version = "1.0"
 java.sourceCompatibility = JavaVersion.VERSION_11
 
 repositories {
 	mavenCentral()
+}
+
+springBoot {
+	mainClass.set("com.deepanshut041.walletifai.WalletifaiApplicationKt")
 }
 
 dependencies {
@@ -63,13 +67,5 @@ tasks.register("getDeps") {
 		configurations
 			.filter { it.isCanBeResolved }
 			.forEach { it.resolve() }
-	}
-}
-
-tasks.register("buildAndReload") {
-	dependsOn("build")
-	mustRunAfter("build")
-	doLast {
-		File(".", "reload-trigger.txt").writeText( "${System.currentTimeMillis()}")
 	}
 }
