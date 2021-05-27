@@ -9,7 +9,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function fetchProfile() {
     return request.get('/api/users/me/')
         .then(response => ({ response }))
-        .catch(error => ({ error: error.response.data }));
+        .catch(error => ({ error: error.response !== undefined? error.response.data: {error: "Network Error"} }));
 }
 
 
@@ -17,11 +17,8 @@ function* handleFetchProfile(action: any) {
     const { response, error } = yield call(fetchProfile);
 
     if (response) {
-        console.log(response.data);
-        
         yield put({ type: actions.HOME_PROFILE_SUCCESS, data: response.data });
     } else {
-        console.log(error);
         yield put({ type: actions.HOME_PROFILE_ERROR, error: error.error });
     }
 }

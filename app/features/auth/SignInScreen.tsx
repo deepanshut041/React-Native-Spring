@@ -70,8 +70,6 @@ class SignInScreen extends Component<any> {
     
     errors.push(minLength(this.state.password, 'Password', 8))
     errors.push(isEmail(this.state.email, 'Email'))
-
-    console.log(errors);
     
     errors = errors.filter(error => error !== "")
     return errors.join(', ')

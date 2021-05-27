@@ -10,13 +10,13 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 function sendSignIn(req: SignInRequest) {
     return request.post('/api/account/signin/', req)
         .then(response => ({ response }))
-        .catch(error => ({ error: error.response.data }));
+        .catch(error => ({ error: error.response !== undefined? error.response.data: {error: "Network Error"} }))
 }
 
 function sendSignUp(req: SignInRequest) {
     return request.post('/api/account/signup/', req)
         .then(response => ({ response }))
-        .catch(error => ({ error: error.response.data }))
+        .catch(error => ({ error: error.response !== undefined? error.response.data: {error: "Network Error"} }))
 }
 
 function saveToken(token: string) {

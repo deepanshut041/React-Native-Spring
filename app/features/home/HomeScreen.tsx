@@ -27,6 +27,14 @@ export class HomeScreen extends Component<any> {
       )
     }
 
+    if (this.props.error !== null) {
+      return (
+        <Layout style={styles.loaderContainer}>
+          <Text style={styles.avatarTitle} category='h4'>{this.props.error}</Text>
+        </Layout>
+      )
+    }
+
     return (
       <Layout style={styles.container}>
         <Layout style={styles.imageContainer}>
