@@ -20,6 +20,7 @@ Clone or download repository. It's is recommended to use IntelliJ idea or other 
 ### Setting up the Spring Server
 
 ```bash
+cd backend
 docker-compose build
 docker-compose up
 ```
@@ -34,6 +35,7 @@ cd app
 npm i
 npm start
 ```
+Update Base url at `app/data/utlis/http.ts`
 
 ## API Documentation
 
